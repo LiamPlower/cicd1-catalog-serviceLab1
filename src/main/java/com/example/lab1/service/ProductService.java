@@ -20,5 +20,7 @@ public class ProductService {
     public Products create (Products product)
     {
         product.setId(nextId++);
+        products.add(product);
+        return product;
     }
 }
