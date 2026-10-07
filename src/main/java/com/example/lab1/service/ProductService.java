@@ -2,7 +2,9 @@ package com.example.lab1.service;
 
 import com.example.lab1.model.Products;
 import com.example.lab1.repository.ProductRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,5 +29,9 @@ public class ProductService {
         product.setId(null);
         // null for now, we use DTO's next week so this will disappear naturally
         return productRepository.save(product);
+    }
+    public Products getById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
 }
