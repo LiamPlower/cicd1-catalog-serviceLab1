@@ -1,5 +1,6 @@
 package com.example.lab1.controller;
 
+import com.example.lab1.dto.CreateProductRequest;
 import com.example.lab1.model.Products;
 import com.example.lab1.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -23,13 +24,6 @@ public class ProductController {
         return productService.getAll();
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Products create(@RequestBody Products product)
-    {
-        return productService.create(product);
-    }
-
     @GetMapping("/{id}")
     public Products getById(@PathVariable Long id) {
         return productService.getById(id);
@@ -39,5 +33,17 @@ public class ProductController {
     public List<Products>getByMinimumPrice(@RequestParam("price") BigDecimal price)
     {
         return productService.getByMinimumPrice(price);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Products createProduct(@RequestBody CreateProductRequest request) {
+        return productService.createProduct(request);
+    }
+
+    @GetMapping("/by-category")
+    public List<Products> getByCategory(
+            @RequestParam("name") String categoryName) {
+        return productService.getByCategoryName(categoryName);
     }
 }
